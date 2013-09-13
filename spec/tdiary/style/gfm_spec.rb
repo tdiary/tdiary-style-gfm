@@ -1,9 +1,6 @@
 # -*- coding: utf-8; -*-
 require 'spec_helper'
 
-require 'tdiary'
-require 'misc/style/gfm/gfm_style'
-
 describe TDiary::Style::GfmDiary do
 	before do
 		@diary = TDiary::Style::GfmDiary.new(Time.at( 1041346800 ), "TITLE", "")
