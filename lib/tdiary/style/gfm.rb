@@ -30,7 +30,6 @@ end
 module TDiary
 	module Style
 		class GfmSection
-			include BaseSection
 			include Twitter::Autolink
 
 			def initialize(fragment, author = nil)
@@ -146,7 +145,6 @@ module TDiary
 		end
 
 		class GfmDiary
-			include BaseDiary
 			include CategorizableDiary
 
 			def initialize(date, title, body, modified = Time.now)
