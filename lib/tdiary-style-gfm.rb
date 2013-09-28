@@ -1,0 +1,1 @@
+require 'tdiary/style/gfm'
