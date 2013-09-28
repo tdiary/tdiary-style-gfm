@@ -6,4 +6,5 @@ require 'tdiary/style'
 require 'tdiary/style/gfm'
 
 TDiary::Style::GfmDiary.send(:include, TDiary::Style::BaseDiary)
+TDiary::Style::GfmDiary.send(:include, TDiary::Style::CategorizableDiary)
 TDiary::Style::GfmSection.send(:include, TDiary::Style::BaseSection)

@@ -132,8 +132,6 @@ module TDiary
 		end
 
 		class GfmDiary
-			include CategorizableDiary
-
 			def initialize(date, title, body, modified = Time.now)
 				init_diary
 				replace( date, title, body )
