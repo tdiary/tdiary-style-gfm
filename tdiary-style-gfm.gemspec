@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'redcarpet'
+  spec.add_dependency 'github-markdown'
   spec.add_dependency 'pygments.rb'
   spec.add_dependency 'twitter-text'
 

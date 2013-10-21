@@ -1,18 +1,8 @@
 # -*- coding: utf-8; -*-
 
-require 'redcarpet'
+require 'github/markdown'
 require 'pygments'
 require 'twitter-text'
-
-class HTMLwithPygments < Redcarpet::Render::HTML
-	def block_code(code, language)
-		Pygments.highlight(code, :lexer => language)
-	rescue Exception
-		<<-HTML
-<div class="highlight"><pre>#{CGI.escapeHTML(code)}</pre></div>
-		HTML
-	end
-end
 
 module TDiary
 	module Style
@@ -64,12 +54,16 @@ module TDiary
 			private
 
 			def to_html(string)
-				renderer = HTMLwithPygments.new(:hard_wrap => true)
-				extensions = {:fenced_code_blocks => true, :tables => true, :no_intra_emphasis => true}
-				r = Redcarpet::Markdown.new(renderer, extensions).render(string)
+				r = GitHub::Markdown.to_html(string, :gfm) do |code, lang|
+					begin
+						Pygments.highlight(code, :lexer => lang)
+					rescue Exception => ex
+						"<div class=\"highlight\"><pre>#{CGI.escapeHTML(code)}</pre></div>"
+					end
+				end
 
 				# Twitter Autolink
-				r = auto_link(r)
+				r = auto_link_usernames_or_lists(r)
 
 				if r =~ /(<pre>|<code>)/
 					r.gsub!(/<a class=\"tweet-url username\" href=\".*?\">(.*?)<\/a>/){ $1 }
@@ -77,7 +71,7 @@ module TDiary
 
 				# except url autolink in plugin block
 				if r =~ /\{\{.+?\}\}/
-					r.gsub!(/<a href=\"(.*?)\" rel=\"nofollow\">.*?<\/a>/){ $1 }
+					r.gsub!(/<a href=\"(.*?)\">.*?<\/a>/){ $1 }
 					r.gsub!(/\{\{(.+?)\}\}/) { "<%=#{CGI.unescapeHTML($1).gsub(/&#39;/, "'").gsub(/&quot;/, '"')}%>" }
 				end
 
