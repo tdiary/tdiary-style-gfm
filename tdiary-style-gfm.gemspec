@@ -5,7 +5,7 @@ require 'tdiary/style/gfm/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "tdiary-style-gfm"
-  spec.version       = Tdiary::Style::Gfm::VERSION
+  spec.version       = TDiary::Style::Gfm::VERSION
   spec.authors       = ["SHIBATA Hiroshi"]
   spec.email         = ["shibata.hiroshi@gmail.com"]
   spec.description   = %q{GFM Style for tDiary}

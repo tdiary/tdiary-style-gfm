@@ -1,4 +1,4 @@
-# Tdiary::Style::Gfm
+# TDiary::Style::Gfm
 
 "GitHub Flavored Markdown" (GFM) style for tDiary 2.x format.
 
