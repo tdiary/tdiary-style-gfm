@@ -113,12 +113,12 @@ http://www.google.com
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <ul>
-<li><a href="http://www.google.com" rel="nofollow">http://www.google.com</a></li>
+<li><a href="http://www.google.com">http://www.google.com</a></li>
 </ul>
 
-<p><a href="https://www.google.com" rel="nofollow">google</a></p>
+<p><a href="https://www.google.com">google</a></p>
 
-<p><a href="http://www.google.com" rel="nofollow">http://www.google.com</a></p>
+<p><a href="http://www.google.com">http://www.google.com</a></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
          EOF
@@ -165,7 +165,7 @@ http://www.google.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<p><a href="http://www.exaple.com" rel="nofollow" target="_blank">Anchor</a></p>
+<p><a href="http://www.exaple.com" target="_blank">Anchor</a></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
          EOF
@@ -195,7 +195,7 @@ http://example.com is example.com
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <div class="highlight"><pre><span class="vi">@foo</span>
 </pre></div>
-<p><a href="http://example.com" rel="nofollow">http://example.com</a> is example.com</p>
+<p><a href="http://example.com">http://example.com</a> is example.com</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 			EOF
@@ -217,7 +217,7 @@ http://example.com is example.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<p><a href="http://example.com" rel="nofollow">example</a> is example.com</p>
+<p><a href="http://example.com">example</a> is example.com</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 			EOF

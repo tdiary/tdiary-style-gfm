@@ -1,24 +1,12 @@
 # -*- coding: utf-8; -*-
 
-require 'redcarpet'
+require 'github/markdown'
 require 'pygments'
 require 'twitter-text'
-
-class HTMLwithPygments < Redcarpet::Render::HTML
-	def block_code(code, language)
-		Pygments.highlight(code, :lexer => language)
-	rescue Exception
-		<<-HTML
-<div class="highlight"><pre>#{CGI.escapeHTML(code)}</pre></div>
-		HTML
-	end
-end
 
 module TDiary
 	module Style
 		class GfmSection
-			include Twitter::Autolink
-
 			def initialize(fragment, author = nil)
 				@author = author
 				@subtitle, @body = fragment.split(/\n/, 2)
@@ -64,35 +52,35 @@ module TDiary
 			private
 
 			def to_html(string)
-				renderer = HTMLwithPygments.new(:hard_wrap => true)
-				extensions = {:fenced_code_blocks => true, :tables => true, :no_intra_emphasis => true}
-				r = Redcarpet::Markdown.new(renderer, extensions).render(string)
-
-				# Twitter Autolink
-				r = auto_link(r)
-
-				if r =~ /(<pre>|<code>)/
-					r.gsub!(/<a class=\"tweet-url username\" href=\".*?\">(.*?)<\/a>/){ $1 }
+				# 1. Stash plugin calls
+				plugin_stashes = []
+				string.gsub!(/\{\{(.*?)\}\}/) do
+					# Convert `{{ }}' to erb tags
+					plugin_stashes.push("<%=#{$1}%>")
+					"@@tdiary_style_gfm_plugin#{plugin_stashes.length - 1}@@"
 				end
 
-				# except url autolink in plugin block
-				if r =~ /\{\{.+?\}\}/
-					r.gsub!(/<a href=\"(.*?)\" rel=\"nofollow\">.*?<\/a>/){ $1 }
-					r.gsub!(/\{\{(.+?)\}\}/) { "<%=#{CGI.unescapeHTML($1).gsub(/&#39;/, "'").gsub(/&quot;/, '"')}%>" }
-				end
-
-				# ignore duplicate autolink
-				if r =~ /<a href="<a href="/
-					r.gsub!(/<a href="<a href=".*?" rel="nofollow">(.*?)<\/a>"(.*?)>(.*?)<\/a>/) do
-						"<a href=\"#{$1}\" rel=\"nofollow\"#{$2}>#{$3}</a>"
+				# 2. Apply markdown conversion
+				r = GitHub::Markdown.to_html(string, :gfm) do |code, lang|
+					begin
+						Pygments.highlight(code, :lexer => lang)
+					rescue Exception => ex
+						"<div class=\"highlight\"><pre>#{CGI.escapeHTML(code)}</pre></div>"
 					end
 				end
-				# ignore auto imagelink
-				if r =~ /<img src="<a href="/
-					r.gsub!(/<img src="<a href=".*?" rel="nofollow">(.*?)<\/a>"(?: alt="(.*?)")?>/){ "<img src=\"#{$1}\" alt=\"#{$2}\">" }
+
+				# 3. Stash <pre> tags
+				pre_tag_stashes = []
+				r.gsub!(/<pre>(.*?)<\/pre>/) do |matched|
+					pre_tag_stashes.push(matched)
+					"@@tdiary_style_gfm_pre_tag#{pre_tag_stashes.length - 1}@@"
 				end
 
-				# emoji
+				# 4. Convert miscellaneous
+				unless r =~ /(<pre>|<code>)/
+					r = Twitter::Autolink.auto_link_usernames_or_lists(r)
+				end
+
 				r = r.emojify
 
 				# diary anchor
@@ -107,6 +95,14 @@ module TDiary
 						%Q|<%=my "#{$1}#{$2}", "#{$1}#{$2}" %>|
 					end
 				}
+
+				# 5. Unstash pre and plugin
+				pre_tag_stashes.each.with_index do |str, i|
+					r.sub!(/@@tdiary_style_gfm_pre_tag#{i}@@/, str)
+				end
+				plugin_stashes.each.with_index do |str, i|
+					r.sub!(/@@tdiary_style_gfm_plugin#{i}@@/, str)
+				end
 
 				r
 			end
