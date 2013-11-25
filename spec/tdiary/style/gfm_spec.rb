@@ -369,6 +369,23 @@ http://example.com is example.com
 		end
 		it { @diary.to_html.should eq @html }
 	end
+
+	describe 'do not modify original string' do
+		before do
+			@orig_source = <<-'EOF'
+# subTitle
+
+{{fn 'テスト'}}"
+			EOF
+			@source = @orig_source.dup
+			@diary.append(@source)
+			@diary.to_html
+
+			@section = nil
+			@diary.each_section{|x| @section = x}
+		end
+		it { expect(@section.body).to eq("\n"+@orig_source.lines.last+"\n") }
+	end
 end
 
 # Local Variables:

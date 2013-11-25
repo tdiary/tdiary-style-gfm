@@ -54,14 +54,14 @@ module TDiary
 			def to_html(string)
 				# 1. Stash plugin calls
 				plugin_stashes = []
-				string.gsub!(/\{\{(.*?)\}\}/) do
+				r = string.gsub(/\{\{(.*?)\}\}/) do
 					# Convert `{{ }}' to erb tags
 					plugin_stashes.push("<%=#{$1}%>")
 					"@@tdiary_style_gfm_plugin#{plugin_stashes.length - 1}@@"
 				end
 
 				# 2. Apply markdown conversion
-				r = GitHub::Markdown.to_html(string, :gfm) do |code, lang|
+				r = GitHub::Markdown.to_html(r, :gfm) do |code, lang|
 					begin
 						Pygments.highlight(code, :lexer => lang)
 					rescue Exception => ex
