@@ -384,7 +384,7 @@ http://example.com is example.com
 			@section = nil
 			@diary.each_section{|x| @section = x}
 		end
-		it { expect(@section.body).to eq("\n"+@orig_source.lines.last+"\n") }
+		it { expect(@section.body).to eq("\n"+@orig_source.lines.to_a.last+"\n") }
 	end
 end
 
