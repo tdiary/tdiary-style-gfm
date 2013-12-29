@@ -63,7 +63,7 @@ module TDiary
 				# 2. Apply markdown conversion
 				r = GitHub::Markdown.to_html(r, :gfm) do |code, lang|
 					begin
-						Pygments.highlight(code, :lexer => lang)
+						Pygments.highlight(code, lexer: lang)
 					rescue Exception => ex
 						"<div class=\"highlight\"><pre>#{CGI.escapeHTML(code)}</pre></div>"
 					end
