@@ -73,7 +73,7 @@ module TDiary
 
 				# 3. Stash <pre> tags
 				pre_tag_stashes = []
-				r.gsub!(/<pre>(.*?)<\/pre>/) do |matched|
+				r.gsub!(/<pre>(.*?)<\/pre>/m) do |matched|
 					pre_tag_stashes.push(matched)
 					"@@tdiary_style_gfm_pre_tag#{pre_tag_stashes.length - 1}@@"
 				end

@@ -349,25 +349,53 @@ http://example.com is example.com
 		it { @diary.to_html.should eq @html }
 	end
 
-	describe 'emoji' do
-		before do
-			source = <<-'EOF'
+	context 'emoji' do
+		describe 'in plain context' do
+			before do
+				source = <<-'EOF'
 # subTitle
 
 :sushi: は美味しい
-			EOF
-			@diary.append(source)
+				EOF
+				@diary.append(source)
 
-			@html = <<-'EOF'
+				@html = <<-'EOF'
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p><img src='http://www.emoji-cheat-sheet.com/graphics/emojis/sushi.png' width='20' height='20' title='sushi' alt='sushi' class='emoji' /> は美味しい</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
-			EOF
+				EOF
+			end
+			it { @diary.to_html.should eq @html }
 		end
-		it { @diary.to_html.should eq @html }
+
+		describe 'in pre tag' do
+			before do
+				source = <<-'EOF'
+# subTitle
+
+```
+:sushi: は
+美味しい
+```
+				EOF
+				@diary.append(source)
+
+				@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<pre><code>:sushi: は
+美味しい
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+				EOF
+			end
+			it { @diary.to_html.should eq @html }
+		end
 	end
 
 	describe 'do not modify original string' do
