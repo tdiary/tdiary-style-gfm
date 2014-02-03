@@ -349,6 +349,80 @@ http://example.com is example.com
 		it { @diary.to_html.should eq @html }
 	end
 
+	context 'twitter username' do
+		describe 'in plain context' do
+			before do
+				source = <<-'EOF'
+# subTitle
+
+@a_matsuda is amatsuda
+				EOF
+				@diary.append(source)
+
+				@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p>@<a class="tweet-url username" href="https://twitter.com/a_matsuda" rel="nofollow">a_matsuda</a> is amatsuda</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+				EOF
+			end
+			it { @diary.to_html.should eq @html }
+		end
+
+		describe 'with <pre>' do
+			before do
+				source = <<-'EOF'
+# subTitle
+
+    p :some_code
+
+@a_matsuda is amatsuda
+				EOF
+				@diary.append(source)
+
+				@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<pre><code>p :some_code
+</code></pre>
+
+<p>@a_matsuda is amatsuda</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+				EOF
+			end
+			it { @diary.to_html.should eq @html }
+		end
+
+		describe 'with <code>' do
+			before do
+				source = <<-'EOF'
+# subTitle
+
+`:some_code`
+
+@a_matsuda is amatsuda
+				EOF
+				@diary.append(source)
+
+				@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p><code>:some_code</code></p>
+
+<p>@a_matsuda is amatsuda</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+				EOF
+			end
+			it { @diary.to_html.should eq @html }
+		end
+  end
+
 	context 'emoji' do
 		describe 'in plain context' do
 			before do
