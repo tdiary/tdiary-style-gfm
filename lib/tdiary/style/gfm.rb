@@ -71,11 +71,17 @@ module TDiary
 					end
 				end
 
-				# 3. Stash <pre> tags
+				# 3. Stash <pre> and <code> tags
 				pre_tag_stashes = []
 				r.gsub!(/<pre>(.*?)<\/pre>/m) do |matched|
 					pre_tag_stashes.push(matched)
 					"@@tdiary_style_gfm_pre_tag#{pre_tag_stashes.length - 1}@@"
+				end
+
+				code_tag_stashes = []
+				r.gsub!(/<code>(.*?)<\/code>/m) do |matched|
+					code_tag_stashes.push(matched)
+					"@@tdiary_style_gfm_code_tag#{code_tag_stashes.length - 1}@@"
 				end
 
 				# 4. Convert miscellaneous
@@ -98,9 +104,12 @@ module TDiary
 					end
 				}
 
-				# 5. Unstash pre and plugin
+				# 5. Unstash <pre>, <code> and plugin call
 				pre_tag_stashes.each.with_index do |str, i|
 					r.sub!(/@@tdiary_style_gfm_pre_tag#{i}@@/, str)
+				end
+				code_tag_stashes.each.with_index do |str, i|
+					r.sub!(/@@tdiary_style_gfm_code_tag#{i}@@/, str)
 				end
 				plugin_stashes.each.with_index do |str, i|
 					r.sub!(/@@tdiary_style_gfm_plugin#{i}@@/, str)

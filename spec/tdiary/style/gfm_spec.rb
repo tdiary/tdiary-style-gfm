@@ -371,7 +371,7 @@ http://example.com is example.com
 			it { @diary.to_html.should eq @html }
 		end
 
-		describe 'in pre tag' do
+		describe 'in <pre>' do
 			before do
 				source = <<-'EOF'
 # subTitle
@@ -390,6 +390,27 @@ http://example.com is example.com
 <pre><code>:sushi: は
 美味しい
 </code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+				EOF
+			end
+			it { @diary.to_html.should eq @html }
+		end
+
+		describe 'in <code>' do
+			before do
+				source = <<-'EOF'
+# subTitle
+
+`:sushi:` は美味しい
+				EOF
+				@diary.append(source)
+
+				@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p><code>:sushi:</code> は美味しい</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 				EOF
