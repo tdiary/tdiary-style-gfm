@@ -52,9 +52,11 @@ module TDiary
 			private
 
 			def to_html(string)
+				r = string.dup
+
 				# 1. Stash plugin calls
 				plugin_stashes = []
-				r = string.gsub(/\{\{(.*?)\}\}/) do
+				r.gsub!(/\{\{(.*?)\}\}/) do
 					# Convert `{{ }}' to erb tags
 					plugin_stashes.push("<%=#{$1}%>")
 					"@@tdiary_style_gfm_plugin#{plugin_stashes.length - 1}@@"
