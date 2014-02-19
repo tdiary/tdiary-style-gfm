@@ -15,6 +15,10 @@ honbun
 ## subTitleH4
 honbun
 
+```
+# comment in code block
+```
+
 			EOF
 			@diary.append(@source)
 		end
@@ -30,6 +34,9 @@ honbun
 <h4>subTitleH4</h4>
 
 <p>honbun</p>
+
+<pre><code># comment in code block
+</code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 				EOF
@@ -47,6 +54,9 @@ honbun
 <h4>subTitleH4</h4>
 
 <p>honbun</p>
+
+<pre><code># comment in code block
+</code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 				EOF
 			end

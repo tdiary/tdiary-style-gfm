@@ -150,12 +150,20 @@ module TDiary
 			end
 
 			def append(body, author = nil)
+				in_code_block = false
 				section = nil
 				body.each_line do |l|
 					case l
 					when /^\#[^\#]/
-						@sections << GfmSection.new(section, author) if section
-						section = l
+						if in_code_block
+							section << l
+						else
+							@sections << GfmSection.new(section, author) if section
+							section = l
+						end
+					when /^```/
+						in_code_block = !in_code_block
+						section << l
 					else
 						section = '' unless section
 						section << l
