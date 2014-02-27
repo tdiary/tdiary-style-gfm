@@ -1,5 +1,7 @@
 # TDiary::Style::Gfm
 
+[![Gem Version](https://badge.fury.io/rb/tdiary-style-gfm.png)](https://rubygems.org/gems/tdiary-style-gfm) [![Build Status](https://secure.travis-ci.org/tdiary/tdiary-style-gfm.png)](https://travis-ci.org/tdiary/tdiary-style-gfm) [![Code Climate](https://codeclimate.com/github/tdiary/tdiary-style-gfm.png)](https://codeclimate.com/github/tdiary/tdiary-style-gfm)
+
 "GitHub Flavored Markdown" (GFM) style for tDiary 2.x format.
 
 ## Installation
