@@ -109,10 +109,10 @@ module TDiary
 					r["@@tdiary_style_gfm_pre_tag#{i}@@"] = str
 				end
 				code_tag_stashes.each.with_index do |str, i|
-					r.sub!(/@@tdiary_style_gfm_code_tag#{i}@@/, str)
+					r["@@tdiary_style_gfm_code_tag#{i}@@"] = str
 				end
 				plugin_stashes.each.with_index do |str, i|
-					r.sub!(/@@tdiary_style_gfm_plugin#{i}@@/, str)
+					r["@@tdiary_style_gfm_plugin#{i}@@"] = str
 				end
 
 				r
