@@ -540,6 +540,30 @@ http://example.com is example.com
 		end
 		it { expect(@section.body).to eq("\n"+@orig_source.lines.to_a.last+"\n") }
 	end
+
+	describe 'stashes in pre' do
+		before do
+			source = <<-'EOF'
+# subTitle
+
+```
+ruby -e "puts \"hello, world.\""
+```
+			EOF
+			@diary.append(source)
+
+			@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<pre><code>ruby -e &quot;puts \&quot;hello, world.\&quot;&quot;
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+			EOF
+		end
+		it { @diary.to_html.should eq @html }
+	end
 end
 
 # Local Variables:
