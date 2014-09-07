@@ -572,6 +572,38 @@ ruby -e "puts \"hello, world.\""
 		end
 		it { @diary.to_html.should eq @html }
 	end
+
+	describe 'plugin syntax in pre, code block' do
+		before do
+			source = <<-'EOF'
+# subTitle
+
+Get IP Address of Docker Container:
+
+```
+% docker inspect -f "{{.NetworkSettings.IPAddress}}  {{.Config.Hostname}}  # Name:{{.Name}}" `docker ps -q`
+```
+
+NOTE: `{{.NetworkSettings.IPAddress}}` is golang template.
+			EOF
+			@diary.append(source)
+
+			@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p>Get IP Address of Docker Container:</p>
+
+<pre><code>% docker inspect -f &quot;{{.NetworkSettings.IPAddress}}  {{.Config.Hostname}}  # Name:{{.Name}}&quot; `docker ps -q`
+</code></pre>
+
+<p>NOTE: <code>{{.NetworkSettings.IPAddress}}</code> is golang template.</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+			EOF
+		end
+		it { @diary.to_html.should eq @html }
+	end
 end
 
 # Local Variables:
