@@ -56,9 +56,9 @@ module TDiary
 
 				# 1. Stash plugin calls
 				plugin_stashes = []
-				r.gsub!(/\{\{(.*?)\}\}/) do
+				r.gsub!(/\{\{(.*?)\}\}/) do |matched|
 					# Convert `{{ }}' to erb tags
-					plugin_stashes.push("<%=#{$1}%>")
+					plugin_stashes.push([matched, "<%=#{$1}%>"])
 					"@@tdiary_style_gfm_plugin#{plugin_stashes.length - 1}@@"
 				end
 
@@ -106,13 +106,25 @@ module TDiary
 
 				# 5. Unstash <pre>, <code> and plugin call
 				pre_tag_stashes.each.with_index do |str, i|
+					plugin_stashes.each.with_index do |(p_str, p_erb), j|
+						if str["@@tdiary_style_gfm_plugin#{j}@@"]
+							str["@@tdiary_style_gfm_plugin#{j}@@"] = CGI.escapeHTML(p_str)
+						end
+					end
 					r["@@tdiary_style_gfm_pre_tag#{i}@@"] = str
 				end
 				code_tag_stashes.each.with_index do |str, i|
+					plugin_stashes.each.with_index do |(p_str, p_erb), j|
+						if str["@@tdiary_style_gfm_plugin#{j}@@"]
+							str["@@tdiary_style_gfm_plugin#{j}@@"] = CGI.escapeHTML(p_str)
+						end
+					end
 					r["@@tdiary_style_gfm_code_tag#{i}@@"] = str
 				end
-				plugin_stashes.each.with_index do |str, i|
-					r["@@tdiary_style_gfm_plugin#{i}@@"] = str
+				plugin_stashes.each.with_index do |(str, erb), i|
+					if r["@@tdiary_style_gfm_plugin#{i}@@"]
+						r["@@tdiary_style_gfm_plugin#{i}@@"] = erb
+					end
 				end
 
 				r
