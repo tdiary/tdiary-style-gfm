@@ -41,7 +41,7 @@ honbun
 </div>
 				EOF
 			end
-			it { @diary.to_html.should eq @html }
+			it { expect(@diary.to_html).to eq @html }
 		end
 
 		context 'CHTML' do
@@ -60,11 +60,11 @@ honbun
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 				EOF
 			end
-			it { @diary.to_html({}, :CHTML).should eq @html }
+			it { expect(@diary.to_html({}, :CHTML)).to eq @html }
 		end
 
 		context 'to_src' do
-			it { @diary.to_src.should eq @source }
+			it { expect(@diary.to_src).to eq @source }
 		end
 	end
 
@@ -103,7 +103,7 @@ replace
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
 	describe 'autolink' do
@@ -134,7 +134,7 @@ http://www.google.com
          EOF
 		end
 
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
   describe 'auto imagelink' do
@@ -159,7 +159,7 @@ http://www.google.com
          EOF
 		end
 
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 
   end
 
@@ -181,7 +181,7 @@ http://www.google.com
          EOF
 		end
 
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 
   end
 
@@ -210,7 +210,7 @@ http://example.com is example.com
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
 	describe 'ignored url syntax with markdown anchor' do
@@ -232,7 +232,7 @@ http://example.com is example.com
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
 	describe 'plugin syntax' do
@@ -257,7 +257,7 @@ http://example.com is example.com
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
 	describe 'plugin syntax with url args' do
@@ -278,7 +278,7 @@ http://example.com is example.com
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
 	describe 'link to my plugin' do
@@ -304,7 +304,7 @@ http://example.com is example.com
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
 	describe 'code highlighting' do
@@ -331,7 +331,7 @@ http://example.com is example.com
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
 	describe 'ignore emphasis' do
@@ -356,7 +356,7 @@ http://example.com is example.com
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
 	context 'twitter username' do
@@ -378,7 +378,7 @@ http://example.com is example.com
 </div>
 				EOF
 			end
-			it { @diary.to_html.should eq @html }
+			it { expect(@diary.to_html).to eq @html }
 		end
 
 		describe 'with <pre>' do
@@ -404,7 +404,7 @@ http://example.com is example.com
 </div>
 				EOF
 			end
-			it { @diary.to_html.should eq @html }
+			it { expect(@diary.to_html).to eq @html }
 		end
 
 		describe 'with <code>' do
@@ -429,7 +429,7 @@ http://example.com is example.com
 </div>
 				EOF
 			end
-			it { @diary.to_html.should eq @html }
+			it { expect(@diary.to_html).to eq @html }
 		end
   end
 
@@ -452,7 +452,7 @@ http://example.com is example.com
 </div>
 				EOF
 			end
-			it { @diary.to_html.should eq @html }
+			it { expect(@diary.to_html).to eq @html }
 		end
 
 		describe 'in (multiline) <pre>' do
@@ -478,7 +478,7 @@ http://example.com is example.com
 </div>
 				EOF
 			end
-			it { @diary.to_html.should eq @html }
+			it { expect(@diary.to_html).to eq @html }
 		end
 
 		describe 'in <code>' do
@@ -499,7 +499,7 @@ http://example.com is example.com
 </div>
 				EOF
 			end
-			it { @diary.to_html.should eq @html }
+			it { expect(@diary.to_html).to eq @html }
 		end
 
 		describe 'in <code> (with attribute)' do
@@ -520,7 +520,7 @@ http://example.com is example.com
 </div>
 				EOF
 			end
-			it { @diary.to_html.should eq @html }
+			it { expect(@diary.to_html).to eq @html }
 		end
 	end
 
@@ -570,7 +570,7 @@ ruby -e "puts \"hello, world.\""
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 
 	describe 'plugin syntax in pre, code block' do
@@ -602,7 +602,7 @@ NOTE: `{{.NetworkSettings.IPAddress}}` is golang template.
 </div>
 			EOF
 		end
-		it { @diary.to_html.should eq @html }
+		it { expect(@diary.to_html).to eq @html }
 	end
 end
 
