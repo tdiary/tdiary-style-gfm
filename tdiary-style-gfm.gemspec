@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'github-markdown'
   spec.add_dependency 'pygments.rb'
   spec.add_dependency 'twitter-text'
-  spec.add_dependency 'gemoji'
+  spec.add_dependency 'emot'
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
