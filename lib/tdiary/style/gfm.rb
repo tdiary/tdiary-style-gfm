@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 
 require 'github/markdown'
-require 'rouge'
+require 'pygments'
 require 'twitter-text'
 
 module TDiary
@@ -65,9 +65,7 @@ module TDiary
 				# 2. Apply markdown conversion
 				r = GitHub::Markdown.to_html(r, :gfm) do |code, lang|
 					begin
-						formatter = Rouge::Formatters::HTML.new(css_class: 'highlight')
-						lexer = Rouge::Lexers.const_get(lang.capitalize.to_sym).new
-						formatter.format(lexer.lex(code))
+						Pygments.highlight(code, lexer: lang)
 					rescue Exception => ex
 						"<div class=\"highlight\"><pre>#{CGI.escapeHTML(code)}</pre></div>"
 					end
