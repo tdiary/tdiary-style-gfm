@@ -5,4 +5,5 @@ rvm:
   - 2.2
   - 2.3.0
   - ruby-head
+before_script: gem update bundler
 script: bundle exec rake spec
