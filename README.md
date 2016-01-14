@@ -6,17 +6,13 @@
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your tDiary's Gemfile.local:
 
     gem 'tdiary-style-gfm'
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install tdiary-style-gfm
 
 ## Usage
 
