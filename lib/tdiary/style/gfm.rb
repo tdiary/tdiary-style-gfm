@@ -66,7 +66,7 @@ module TDiary
 				r = GitHub::Markdown.to_html(r, :gfm) do |code, lang|
 					begin
 						formatter = Rouge::Formatters::HTML.new(css_class: 'highlight')
-						lexer = Rouge::Lexers.const_get(lang.capitalize.to_sym).new
+						lexer = Rouge::Lexer.find(lang)
 						formatter.format(lexer.lex(code))
 					rescue Exception => ex
 						"<div class=\"highlight\"><pre>#{CGI.escapeHTML(code)}</pre></div>"
