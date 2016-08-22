@@ -205,7 +205,6 @@ http://example.com is example.com
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <pre class="highlight"><code><span class="vi">@foo</span>
 </code></pre>
-
 <p><a href="http://example.com">http://example.com</a> is example.com</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -328,8 +327,7 @@ http://example.com is example.com
 <pre class="highlight"><code> <span class="k">def</span> <span class="nf">class</span>
    <span class="vi">@foo</span> <span class="o">=</span> <span class="s1">'bar'</span>
  <span class="k">end</span>
-</code></pre>
-<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</code></pre><%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 			EOF
 		end
@@ -449,7 +447,7 @@ http://example.com is example.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<p><img src='http://www.emoji-cheat-sheet.com/graphics/emojis/sushi.png' width='20' height='20' title='sushi' alt='sushi' class='emoji' /> は美味しい</p>
+<p><img src='http://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/sushi.png' width='20' height='20' title='sushi' alt='sushi' class='emoji' /> は美味しい</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 				EOF
