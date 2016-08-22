@@ -65,7 +65,7 @@ module TDiary
 				# 2. Apply markdown conversion
 				r = GitHub::Markdown.to_html(r, :gfm) do |code, lang|
 					begin
-						formatter = Rouge::Formatters::HTML.new(css_class: 'highlight')
+						formatter = Rouge::Formatters::HTMLPygments.new(Rouge::Formatters::HTML.new, 'highlight')
 						lexer = Rouge::Lexer.find(lang)
 						formatter.format(lexer.lex(code))
 					rescue Exception => ex
