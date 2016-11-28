@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{GFM Style for tDiary}
   spec.summary       = %q{GFM Style for tDiary}
   spec.homepage      = "https://github.com/tdiary/tdiary-style-gfm"
-  spec.license       = "MIT"
+  spec.license       = "GPL-3.0"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
