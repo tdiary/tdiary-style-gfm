@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{GFM Style for tDiary}
   spec.homepage      = "https://github.com/tdiary/tdiary-style-gfm"
   spec.license       = "GPL-3.0"
+  spec.required_ruby_version = ">= 2.2.0"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
