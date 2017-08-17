@@ -243,6 +243,13 @@ http://example.com is example.com
 
 {{plugin "val", 'val'}}
 
+{{plugin <<EOS, 'val'
+valval
+valval
+vaoooo
+EOS
+}}
+
 			EOF
 			@diary.append(source)
 
@@ -253,6 +260,13 @@ http://example.com is example.com
 <p><%=plugin 'val'%></p>
 
 <p><%=plugin "val", 'val'%></p>
+
+<p><%=plugin <<EOS, 'val'
+valval
+valval
+vaoooo
+EOS
+%></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 			EOF
