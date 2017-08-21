@@ -56,11 +56,12 @@ module TDiary
 
 				# 1. Stash plugin calls
 				plugin_stashes = []
-				r.gsub!(/\{\{(.*?)\}\}/) do |matched|
+				plugin_blocks, replaced_r = extract_plugin_blocks_and_replace(r)
+				plugin_blocks.each do |plugin_block|
 					# Convert `{{ }}' to erb tags
-					plugin_stashes.push([matched, "<%=#{$1}%>"])
-					"@@tdiary_style_gfm_plugin#{plugin_stashes.length - 1}@@"
+					plugin_stashes.push(["{{#{plugin_block}}}", "<%=#{plugin_block}%>"])
 				end
+				r = replaced_r
 
 				# 2. Apply markdown conversion
 				r = GitHub::Markdown.to_html(r, :gfm) do |code, lang|
@@ -150,6 +151,37 @@ module TDiary
 					r
 				end
 			end
+
+			def extract_plugin_blocks_and_replace(text)
+				s = StringScanner.new(text)
+				blocks = []
+				count = 0
+				replaced_text = ""
+				while chunk = s.scan_until(/\{\{/)
+					chunk[-2, 2] = ""
+					replaced_text << chunk
+					if plugin_str = extract_plugin_block(s)
+						replaced_text << "@@tdiary_style_gfm_plugin#{count}@@"
+						blocks << plugin_str
+						count += 1
+					end
+				end
+				replaced_text << s.rest
+				return blocks, replaced_text
+			end
+
+			def extract_plugin_block(s)
+				pos = s.pos
+				buf = ""
+				while chunk = s.scan_until(/\}\}/)
+					buf << chunk
+					buf.chomp!("}}")
+					return buf
+				end
+				s.pos = pos
+				nil
+			end
+
 		end
 
 		class GfmDiary
