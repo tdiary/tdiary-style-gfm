@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'github-markdown'
-  spec.add_dependency 'rouge', '>= 2.0'
+  spec.add_dependency 'rouge', '>= 2.2'
   spec.add_dependency 'twitter-text'
   spec.add_dependency 'emot'
 
