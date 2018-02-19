@@ -1,6 +1,6 @@
 # -*- coding: utf-8; -*-
 
-require 'github/markdown'
+require 'commonmarker'
 require 'rouge'
 require 'twitter-text'
 
@@ -64,7 +64,7 @@ module TDiary
 				r = replaced_r
 
 				# 2. Apply markdown conversion
-				r = GitHub::Markdown.to_html(r, :gfm) do |code, lang|
+				r = CommonMarker.render_html(r, :DEFAULT) do |code, lang|
 					begin
 						formatter = Rouge::Formatters::HTMLPygments.new(Rouge::Formatters::HTML.new, 'highlight')
 						lexer = Rouge::Lexer.find_fancy(lang)

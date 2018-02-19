@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'github-markdown'
+  spec.add_dependency 'commonmarker'
   spec.add_dependency 'rouge', '>= 2.2'
   spec.add_dependency 'twitter-text', '~> 1.0'
   spec.add_dependency 'emot'
