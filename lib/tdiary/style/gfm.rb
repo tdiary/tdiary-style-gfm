@@ -64,15 +64,7 @@ module TDiary
 				r = replaced_r
 
 				# 2. Apply markdown conversion
-				r = CommonMarker.render_html(r, :DEFAULT, [:autolink]) do |code, lang|
-					begin
-						formatter = Rouge::Formatters::HTMLPygments.new(Rouge::Formatters::HTML.new, 'highlight')
-						lexer = Rouge::Lexer.find_fancy(lang)
-						formatter.format(lexer.lex(code))
-					rescue Exception => ex
-						"<div class=\"highlight\"><pre>#{CGI.escapeHTML(code)}</pre></div>"
-					end
-				end
+				r = CommonMarker.render_html(r, [:DEFAULT, :GITHUB_PRE_LANG], [:autolink])
 
 				# 3. Stash <pre> and <code> tags
 				pre_tag_stashes = []
