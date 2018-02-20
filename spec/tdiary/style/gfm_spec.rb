@@ -141,8 +141,8 @@ http://www.google.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<p><img src="http://www.google.com/logo.jpg" alt=""></p>
-<p><img src="http://www.google.com/logo.jpg" alt="google"></p>
+<p><img src="http://www.google.com/logo.jpg" alt="" /></p>
+<p><img src="http://www.google.com/logo.jpg" alt="google" /></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
          EOF
