@@ -1,7 +1,6 @@
 # -*- coding: utf-8; -*-
 
 require 'commonmarker'
-require 'rouge'
 require 'twitter-text'
 
 module TDiary
@@ -64,7 +63,7 @@ module TDiary
 				r = replaced_r
 
 				# 2. Apply markdown conversion
-				r = CommonMarker.render_html(r, [:DEFAULT, :GITHUB_PRE_LANG], [:autolink])
+				r = CommonMarker.render_html(r, [:DEFAULT], [:autolink])
 
 				# 3. Stash <pre> and <code> tags
 				pre_tag_stashes = []

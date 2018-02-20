@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'commonmarker'
-  spec.add_dependency 'rouge', '>= 2.2'
   spec.add_dependency 'twitter-text', '~> 1.0'
   spec.add_dependency 'emot'
 

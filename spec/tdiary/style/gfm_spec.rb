@@ -192,8 +192,8 @@ http://example.com is example.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre class="highlight"><code><span class="vi">@foo</span>
-</code></pre></div>
+<pre><code class="language-ruby">@foo
+</code></pre>
 <p><a href="http://example.com">http://example.com</a> is example.com</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -324,10 +324,11 @@ EOS
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre class="highlight"><code> <span class="k">def</span> <span class="nf">class</span>
-   <span class="vi">@foo</span> <span class="o">=</span> <span class="s1">'bar'</span>
- <span class="k">end</span>
-</code></pre></div><%=section_leave_proc( Time.at( 1041346800 ) )%>
+<pre><code class="language-ruby"> def class
+   @foo = 'bar'
+ end
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 			EOF
 		end
