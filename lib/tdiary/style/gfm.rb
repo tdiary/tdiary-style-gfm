@@ -64,7 +64,7 @@ module TDiary
 				r = replaced_r
 
 				# 2. Apply markdown conversion
-				r = CommonMarker.render_html(r, :DEFAULT) do |code, lang|
+				r = CommonMarker.render_html(r, :DEFAULT, [:autolink]) do |code, lang|
 					begin
 						formatter = Rouge::Formatters::HTMLPygments.new(Rouge::Formatters::HTML.new, 'highlight')
 						lexer = Rouge::Lexer.find_fancy(lang)
