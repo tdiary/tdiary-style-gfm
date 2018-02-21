@@ -1,7 +1,6 @@
 # -*- coding: utf-8; -*-
 
-require 'github/markdown'
-require 'rouge'
+require 'commonmarker'
 require 'twitter-text'
 
 module TDiary
@@ -64,15 +63,7 @@ module TDiary
 				r = replaced_r
 
 				# 2. Apply markdown conversion
-				r = GitHub::Markdown.to_html(r, :gfm) do |code, lang|
-					begin
-						formatter = Rouge::Formatters::HTMLPygments.new(Rouge::Formatters::HTML.new, 'highlight')
-						lexer = Rouge::Lexer.find_fancy(lang)
-						formatter.format(lexer.lex(code))
-					rescue Exception => ex
-						"<div class=\"highlight\"><pre>#{CGI.escapeHTML(code)}</pre></div>"
-					end
-				end
+				r = CommonMarker.render_html(r, [:DEFAULT], [:autolink])
 
 				# 3. Stash <pre> and <code> tags
 				pre_tag_stashes = []

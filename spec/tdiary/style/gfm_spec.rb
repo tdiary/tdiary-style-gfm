@@ -30,11 +30,8 @@ honbun
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p>honbun</p>
-
 <h4>subTitleH4</h4>
-
 <p>honbun</p>
-
 <pre><code># comment in code block
 </code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
@@ -50,11 +47,8 @@ honbun
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p>honbun</p>
-
 <h4>subTitleH4</h4>
-
 <p>honbun</p>
-
 <pre><code># comment in code block
 </code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
@@ -95,9 +89,7 @@ replace
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "replaceTitle" ) %></h3>
 <p>replace</p>
-
 <h4>replaceTitleH4</h4>
-
 <p>replace</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -125,9 +117,7 @@ http://www.google.com
 <ul>
 <li><a href="http://www.google.com">http://www.google.com</a></li>
 </ul>
-
 <p><a href="https://www.google.com">google</a></p>
-
 <p><a href="http://www.google.com">http://www.google.com</a></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -151,9 +141,8 @@ http://www.google.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<p><img src="http://www.google.com/logo.jpg" alt=""></p>
-
-<p><img src="http://www.google.com/logo.jpg" alt="google"></p>
+<p><img src="http://www.google.com/logo.jpg" alt="" /></p>
+<p><img src="http://www.google.com/logo.jpg" alt="google" /></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
          EOF
@@ -203,8 +192,8 @@ http://example.com is example.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre class="highlight"><code><span class="vi">@foo</span>
-</code></pre></div>
+<pre><code class="language-ruby">@foo
+</code></pre>
 <p><a href="http://example.com">http://example.com</a> is example.com</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -258,9 +247,7 @@ EOS
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p><%=plugin 'val'%></p>
-
 <p><%=plugin "val", 'val'%></p>
-
 <p><%=plugin <<EOS, 'val'
 valval
 valval
@@ -312,7 +299,6 @@ EOS
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p><%=my "20120101p01", "20120101p01" %></p>
-
 <p><%=my "20120101p01", "Link" %></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -338,10 +324,11 @@ EOS
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre class="highlight"><code> <span class="k">def</span> <span class="nf">class</span>
-   <span class="vi">@foo</span> <span class="o">=</span> <span class="s1">'bar'</span>
- <span class="k">end</span>
-</code></pre></div><%=section_leave_proc( Time.at( 1041346800 ) )%>
+<pre><code class="language-ruby"> def class
+   @foo = 'bar'
+ end
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 			EOF
 		end
@@ -364,7 +351,6 @@ EOS
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p>@<a class="tweet-url username" href="https://twitter.com/a_matsuda" rel="nofollow">a_matsuda</a> is amatsuda</p>
-
 <p><%=isbn_left_image ''%></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -412,7 +398,6 @@ EOS
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <pre><code>p :some_code
 </code></pre>
-
 <p>@a_matsuda is amatsuda</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -437,7 +422,6 @@ EOS
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p><code>:some_code</code></p>
-
 <p>@a_matsuda is amatsuda</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -576,9 +560,7 @@ ruby -e "puts \"hello, world.\""
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <pre><code>ruby -e &quot;puts \&quot;hello, world.\&quot;&quot;
 </code></pre>
-
 <p><code>ruby -e &quot;puts \&quot;hello, world.\&quot;&quot;</code></p>
-
 <p><%=plugin "\0", "\1", "\2"%></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -607,10 +589,8 @@ NOTE: `{{.NetworkSettings.IPAddress}}` is golang template.
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p>Get IP Address of Docker Container:</p>
-
 <pre><code>% docker inspect -f &quot;{{.NetworkSettings.IPAddress}}  {{.Config.Hostname}}  # Name:{{.Name}}&quot; `docker ps -q`
 </code></pre>
-
 <p>NOTE: <code>{{.NetworkSettings.IPAddress}}</code> is golang template.</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
