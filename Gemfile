@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in tdiary-style-gfm.gemspec
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
 gemspec
 
 gem 'tdiary', github: 'tdiary/tdiary-core'
