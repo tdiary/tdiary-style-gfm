@@ -22,8 +22,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'commonmarker'
   spec.add_dependency 'twitter-text', '>= 2.0'
   spec.add_dependency 'emot'
-
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
 end
