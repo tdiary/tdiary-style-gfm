@@ -32,8 +32,8 @@ honbun
 <p>honbun</p>
 <h4>subTitleH4</h4>
 <p>honbun</p>
-<pre><code># comment in code block
-</code></pre>
+<pre style="background-color:#2b303b;"><code><span style="color:#c0c5ce;"># comment in code block
+</span></code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 				EOF
@@ -49,8 +49,8 @@ honbun
 <p>honbun</p>
 <h4>subTitleH4</h4>
 <p>honbun</p>
-<pre><code># comment in code block
-</code></pre>
+<pre style="background-color:#2b303b;"><code><span style="color:#c0c5ce;"># comment in code block
+</span></code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 				EOF
 			end
@@ -192,8 +192,8 @@ http://example.com is example.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre><code class="language-ruby">@foo
-</code></pre>
+<pre lang="ruby" style="background-color:#2b303b;"><code><span style="color:#c0c5ce;">@</span><span style="color:#bf616a;">foo
+</span></code></pre>
 <p><a href="http://example.com">http://example.com</a> is example.com</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -324,10 +324,10 @@ EOS
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre><code class="language-ruby"> def class
-   @foo = 'bar'
- end
-</code></pre>
+<pre lang="ruby" style="background-color:#2b303b;"><code><span style="color:#c0c5ce;"> </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">class
+</span><span style="color:#c0c5ce;">   @</span><span style="color:#bf616a;">foo </span><span style="color:#c0c5ce;">= &#39;</span><span style="color:#a3be8c;">bar</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#c0c5ce;"> </span><span style="color:#b48ead;">end
+</span></code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 			EOF
@@ -396,8 +396,8 @@ EOS
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre><code>p :some_code
-</code></pre>
+<pre style="background-color:#2b303b;"><code><span style="color:#c0c5ce;">p :some_code
+</span></code></pre>
 <p>@a_matsuda is amatsuda</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -445,7 +445,7 @@ EOS
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<p><img src='//www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/sushi.png' width='20' height='20' title='sushi' alt='sushi' class='emoji' /> は美味しい</p>
+<p>🍣 は美味しい</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 				EOF
@@ -469,9 +469,9 @@ EOS
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre><code>:sushi: は
-美味しい
-</code></pre>
+<pre style="background-color:#2b303b;"><code><span style="color:#c0c5ce;">:sushi: は
+</span><span style="color:#c0c5ce;">美味しい
+</span></code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 				EOF
@@ -513,7 +513,7 @@ EOS
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<p><code class="foo">:sushi:</code> は美味しい</p>
+<p><code class="foo">🍣</code> は美味しい</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
 				EOF
@@ -558,8 +558,8 @@ ruby -e "puts \"hello, world.\""
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre><code>ruby -e &quot;puts \&quot;hello, world.\&quot;&quot;
-</code></pre>
+<pre style="background-color:#2b303b;"><code><span style="color:#c0c5ce;">ruby -e &quot;puts \&quot;hello, world.\&quot;&quot;
+</span></code></pre>
 <p><code>ruby -e &quot;puts \&quot;hello, world.\&quot;&quot;</code></p>
 <p><%=plugin "\0", "\1", "\2"%></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
@@ -589,8 +589,8 @@ NOTE: `{{.NetworkSettings.IPAddress}}` is golang template.
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p>Get IP Address of Docker Container:</p>
-<pre><code>% docker inspect -f &quot;{{.NetworkSettings.IPAddress}}  {{.Config.Hostname}}  # Name:{{.Name}}&quot; `docker ps -q`
-</code></pre>
+<pre style="background-color:#2b303b;"><code><span style="color:#c0c5ce;">% docker inspect -f &quot;{{.NetworkSettings.IPAddress}}  {{.Config.Hostname}}  # Name:{{.Name}}&quot; `docker ps -q`
+</span></code></pre>
 <p>NOTE: <code>{{.NetworkSettings.IPAddress}}</code> is golang template.</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
