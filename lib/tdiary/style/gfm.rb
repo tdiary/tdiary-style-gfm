@@ -66,7 +66,7 @@ module TDiary
 				r = Commonmarker.to_html(r,
 					options: {
 						render: { unsafe: true },
-						extension: { header_ids: nil }
+						extension: { header_ids: nil, tagfilter: false }
 					}
 				)
 
