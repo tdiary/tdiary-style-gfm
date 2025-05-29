@@ -598,6 +598,34 @@ NOTE: `{{.NetworkSettings.IPAddress}}` is golang template.
 		end
 		it { expect(@diary.to_html).to eq @html }
 	end
+
+	describe 'youtube link with @' do
+		before do
+			source = <<-'EOF'
+# subTitle
+
+This is a link to youtube.com/@username
+Another one: https://www.youtube.com/@anotheruser
+
+This is a normal mention @twitteruser.
+A link with @ in path http://example.com/path/@foo/bar
+			EOF
+			@diary.append(source)
+
+			@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p>This is a link to <a href="https://youtube.com/@username">youtube.com/@username</a>
+Another one: <a href="https://www.youtube.com/@anotheruser">https://www.youtube.com/@anotheruser</a></p>
+<p>This is a normal mention @<a class="tweet-url username" href="https://twitter.com/twitteruser" rel="nofollow">twitteruser</a>.
+A link with @ in path <a href="http://example.com/path/@foo/bar">http://example.com/path/@foo/bar</a></p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+			EOF
+		end
+		it { expect(@diary.to_html).to eq @html }
+	end
 end
 
 # Local Variables:
