@@ -616,9 +616,9 @@ A link with @ in path http://example.com/path/@foo/bar
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<p>This is a link to <a href="https://youtube.com/@username">youtube.com/@username</a>
+<p>This is a link to <a href="https://youtube.com/@username">youtube.com/@username</a><br />
 Another one: <a href="https://www.youtube.com/@anotheruser">https://www.youtube.com/@anotheruser</a></p>
-<p>This is a normal mention @<a class="tweet-url username" href="https://twitter.com/twitteruser" rel="nofollow">twitteruser</a>.
+<p>This is a normal mention @<a class="tweet-url username" href="https://twitter.com/twitteruser" rel="nofollow">twitteruser</a>.<br />
 A link with @ in path <a href="http://example.com/path/@foo/bar">http://example.com/path/@foo/bar</a></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
