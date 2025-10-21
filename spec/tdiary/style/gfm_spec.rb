@@ -627,7 +627,7 @@ A link with @ in path <a href="http://example.com/path/@foo/bar">http://example.
 		it { expect(@diary.to_html).to eq @html }
 	end
 
-	describe 'URLs with @ in an embedding codes must not be converted into Twitter links.
+	describe 'URLs with @ in embedding codes must not be converted into Twitter links.
 ' do
 		before do
 			source = <<-'EOF'
