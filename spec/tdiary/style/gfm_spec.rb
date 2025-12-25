@@ -434,6 +434,32 @@ EOS
 		end
   end
 
+	describe 'twitter autolink disabled' do
+		before do
+			configuration_double = double('TDiaryConfiguration', options: { 'gfm.twitter_autolink' => false })
+			allow(TDiary).to receive(:configuration).and_return(configuration_double)
+
+			@diary = TDiary::Style::GfmDiary.new(Time.at( 1041346800 ), "TITLE", "")
+
+			source = <<-'EOF'
+# subTitle
+
+@a_matsuda is amatsuda
+			EOF
+			@diary.append(source)
+
+			@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p>@a_matsuda is amatsuda</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+			EOF
+		end
+		it { expect(@diary.to_html).to eq @html }
+	end
+
 	context 'emoji' do
 		describe 'in plain context' do
 			before do
