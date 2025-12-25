@@ -70,7 +70,7 @@ module TDiary
 					}
 				)
 
-				# 3. Stash <pre> and <code> tags
+				# 3. Stash <pre>, <code>, <iframe> and <script> tags
 				pre_tag_stashes = []
 				r.gsub!(/<pre(.*?)<\/pre>/m) do |matched|
 					pre_tag_stashes.push(matched)
@@ -81,6 +81,18 @@ module TDiary
 				r.gsub!(/<code(.*?)<\/code>/m) do |matched|
 					code_tag_stashes.push(matched)
 					"@@tdiary_style_gfm_code_tag#{code_tag_stashes.length - 1}@@"
+				end
+
+				iframe_tag_stashes = []
+				r.gsub!(/<iframe(.*?)<\/iframe>/m) do |matched|
+					iframe_tag_stashes.push(matched)
+					"@@tdiary_style_gfm_iframe_tag#{iframe_tag_stashes.length - 1}@@"
+				end
+
+				script_tag_stashes = []
+				r.gsub!(/<script(.*?)<\/script>/m) do |matched|
+					script_tag_stashes.push(matched)
+					"@@tdiary_style_gfm_script_tag#{script_tag_stashes.length - 1}@@"
 				end
 
 				# 4. Convert miscellaneous
@@ -142,7 +154,7 @@ module TDiary
 					end
 				}
 
-				# 5. Unstash <pre>, <code> and plugin call
+				# 5. Unstash <pre>, <code>, <iframe> and <script> and plugin call
 				pre_tag_stashes.each.with_index do |str, i|
 					plugin_stashes.each.with_index do |(p_str, p_erb), j|
 						if str["@@tdiary_style_gfm_plugin#{j}@@"]
@@ -158,6 +170,22 @@ module TDiary
 						end
 					end
 					r["@@tdiary_style_gfm_code_tag#{i}@@"] = str
+				end
+				iframe_tag_stashes.each.with_index do |str, i|
+					plugin_stashes.each.with_index do |(p_str, p_erb), j|
+						if str["@@tdiary_style_gfm_plugin#{j}@@"]
+							str["@@tdiary_style_gfm_plugin#{j}@@"] = CGI.escapeHTML(p_str)
+						end
+					end
+					r["@@tdiary_style_gfm_iframe_tag#{i}@@"] = str
+				end
+				script_tag_stashes.each.with_index do |str, i|
+					plugin_stashes.each.with_index do |(p_str, p_erb), j|
+						if str["@@tdiary_style_gfm_plugin#{j}@@"]
+							str["@@tdiary_style_gfm_plugin#{j}@@"] = CGI.escapeHTML(p_str)
+						end
+					end
+					r["@@tdiary_style_gfm_script_tag#{i}@@"] = str
 				end
 				plugin_stashes.each.with_index do |(str, erb), i|
 					if r["@@tdiary_style_gfm_plugin#{i}@@"]

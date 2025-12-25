@@ -626,6 +626,32 @@ A link with @ in path <a href="http://example.com/path/@foo/bar">http://example.
 		end
 		it { expect(@diary.to_html).to eq @html }
 	end
+
+	describe 'URLs with @ in embedding codes must not be converted into Twitter links.
+' do
+		before do
+			source = <<-'EOF'
+# subTitle
+
+This is an embedding of a post of a Mathtodon server.
+
+<iframe src="https://mathtod.online/@Nyoho/115394182617923497/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" allowfullscreen="allowfullscreen"></iframe><script src="https://mathtod.online/embed.js" async="async"></script>
+			EOF
+			@diary.append(source)
+
+			@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p>This is an embedding of a post of a Mathtodon server.</p>
+<iframe src="https://mathtod.online/@Nyoho/115394182617923497/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" allowfullscreen="allowfullscreen"></iframe><script src="https://mathtod.online/embed.js" async="async"></script>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+			EOF
+		end
+		it { expect(@diary.to_html).to eq @html }
+	end
+
 end
 
 # Local Variables:
