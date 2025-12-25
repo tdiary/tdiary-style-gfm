@@ -3,6 +3,9 @@ require 'spec_helper'
 
 describe TDiary::Style::GfmDiary do
 	before do
+		configuration_double = double('TDiaryConfiguration', options: { 'gfm.twitter_autolink' => true })
+		allow(TDiary).to receive(:configuration).and_return(configuration_double)
+
 		@diary = TDiary::Style::GfmDiary.new(Time.at( 1041346800 ), "TITLE", "")
 	end
 
