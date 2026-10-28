@@ -1,6 +1,21 @@
 # -*- coding: utf-8; -*-
 
 require 'commonmarker'
+require 'json'
+
+# twitter-text 3.1.0 passes JSON.parse options as a positional hash while loading,
+# which json 3 rejects. Prepend before the require so its own definition loses.
+module Twitter
+	module TwitterText
+		class Configuration
+			singleton_class.prepend(Module.new do
+				def parse_string(string, options = {})
+					JSON.parse(string, **options, symbolize_names: true)
+				end
+			end)
+		end
+	end
+end
 require 'twitter-text'
 
 module TDiary
