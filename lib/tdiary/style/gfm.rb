@@ -103,48 +103,22 @@ module TDiary
 
 				# 4. Convert miscellaneous
 				if pre_tag_stashes.none? && code_tag_stashes.none?
-					# STAGE 1: Stash all existing <a> tags from CommonMarker output
-					original_a_tag_stashes = []
-					r.gsub!(/(<a\s[^>]*href=[^>]*>.*?<\/a>)/im) do |match|
-						original_a_tag_stashes.push(match)
-						"@@TDIARY_GFM_A_TAG_#{original_a_tag_stashes.length - 1}@@"
-					end
-
-					# STAGE 2: Protect YouTube @-URLs that might still be plain text
-					youtube_link_data_for_twitter_text_protection = []
-					r.gsub!(/((?:https?:\/\/)?(?:www\.)?youtube\.com\/@([a-zA-Z0-9_.-]+))/) do |match|
-						original_text = $1
-						placeholder = "@@YT_LINK_PROTECT_#{youtube_link_data_for_twitter_text_protection.length}@@"
-						youtube_link_data_for_twitter_text_protection << { placeholder: placeholder, original_text: original_text }
-						placeholder
-					end
-
-					# STAGE 3: Apply Twitter's autolinker for @mentions and lists.
-					if TDiary.configuration.options['gfm.twitter_autolink'] != false
-						r = Twitter::TwitterText::Autolink.auto_link_usernames_or_lists(r)
-					end
-
-					# STAGE 4: Restore protected YouTube links (as new <a> tags)
-					youtube_link_data_for_twitter_text_protection.each do |link_data|
-						original_text = link_data[:original_text]
-						href = original_text
-
-						if !href.start_with?('http://') && !href.start_with?('https://')
-							if href.include?('youtube.com/')
-								href = "https://#{href}"
-							else
-								href = "http://#{href}"
+					# Link only text outside of tags, leaving @ in attributes like <iframe src=".../@user/embed"> and in <a>, <script> and <style> as is
+					skip_until = nil
+					r = r.split(/(<[^>]*>)/).map {|token|
+						if token.start_with?('<')
+							if skip_until
+								skip_until = nil if skip_until.match?(token)
+							elsif /\A<(a|script|style)\b/i =~ token
+								skip_until = /\A<\/#{$1}\s*>/i
 							end
+							token
+						elsif skip_until
+							token
+						else
+							autolink_text(token)
 						end
-
-						youtube_html_link = "<a href=\"#{CGI.escapeHTML(href)}\">#{CGI.escapeHTML(original_text)}</a>"
-						r.gsub!(link_data[:placeholder], youtube_html_link)
-					end
-
-					# STAGE 5: Restore original <a> tags
-					original_a_tag_stashes.each.with_index do |tag_content, i|
-						r.gsub!("@@TDIARY_GFM_A_TAG_#{i}@@", tag_content)
-					end
+					}.join
 				end
 
 				r = r.emojify
@@ -186,6 +160,41 @@ module TDiary
 				end
 
 				r
+			end
+
+			def autolink_text(text)
+				# STAGE 1: Protect YouTube @-URLs from Twitter's autolinker
+				youtube_link_data_for_twitter_text_protection = []
+				text.gsub!(/((?:https?:\/\/)?(?:www\.)?youtube\.com\/@([a-zA-Z0-9_.-]+))/) do |match|
+					original_text = $1
+					placeholder = "@@YT_LINK_PROTECT_#{youtube_link_data_for_twitter_text_protection.length}@@"
+					youtube_link_data_for_twitter_text_protection << { placeholder: placeholder, original_text: original_text }
+					placeholder
+				end
+
+				# STAGE 2: Apply Twitter's autolinker for @mentions and lists.
+				if TDiary.configuration.options['gfm.twitter_autolink'] != false
+					text = Twitter::TwitterText::Autolink.auto_link_usernames_or_lists(text)
+				end
+
+				# STAGE 3: Restore protected YouTube links (as new <a> tags)
+				youtube_link_data_for_twitter_text_protection.each do |link_data|
+					original_text = link_data[:original_text]
+					href = original_text
+
+					if !href.start_with?('http://') && !href.start_with?('https://')
+						if href.include?('youtube.com/')
+							href = "https://#{href}"
+						else
+							href = "http://#{href}"
+						end
+					end
+
+					youtube_html_link = "<a href=\"#{CGI.escapeHTML(href)}\">#{CGI.escapeHTML(original_text)}</a>"
+					text.gsub!(link_data[:placeholder], youtube_html_link)
+				end
+
+				text
 			end
 
 			def get_categories
