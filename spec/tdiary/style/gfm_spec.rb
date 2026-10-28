@@ -101,6 +101,43 @@ replace
 		it { expect(@diary.to_html).to eq @html }
 	end
 
+	describe 'empty subtitle' do
+		before do
+			@source = <<-'EOF'
+# subTitle
+honbun
+
+#
+nashi
+
+			EOF
+			@diary.append(@source)
+		end
+
+		context 'HTML' do
+			before do
+				@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p>honbun</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<p>nashi</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+				EOF
+			end
+			it { expect(@diary.to_html).to eq @html }
+		end
+
+		context 'to_src' do
+			it { expect(@diary.to_src).to eq "# subTitle\nhonbun\n\n# \nnashi\n\n" }
+		end
+	end
+
 	describe 'autolink' do
 		before do
 			source = <<-EOF
