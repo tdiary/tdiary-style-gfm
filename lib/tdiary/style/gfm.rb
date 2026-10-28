@@ -52,6 +52,9 @@ module TDiary
 			end
 
 			def do_html4(date, idx, opt)
+				# An empty `#` only separates sections, so skip the heading but keep @subtitle for to_src.
+				return @body_to_html if @subtitle.empty?
+
 				subtitle = to_html('# ' + @subtitle)
 				subtitle.sub!( %r!<h3>(.+?)</h3>!m ) do
 					"<h3><%= subtitle_proc( Time.at( #{date.to_i} ), #{$1.dump.gsub( /%/, '\\\\045' )} ) %></h3>"
