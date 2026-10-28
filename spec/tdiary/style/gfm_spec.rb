@@ -681,6 +681,32 @@ This is an embedding of a post of a Mathtodon server.
 		it { expect(@diary.to_html).to eq @html }
 	end
 
+	describe '@ in <script> and <style> must not be converted into Twitter links' do
+		before do
+			source = <<-'EOF'
+# subTitle
+
+<style>@media (max-width: 600px) { .mastodon-embed { width: 100%; } }</style>
+<script>var user = "@a_matsuda";</script>
+
+@a_matsuda is amatsuda
+			EOF
+			@diary.append(source)
+
+			@html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<style>@media (max-width: 600px) { .mastodon-embed { width: 100%; } }</style>
+<script>var user = "@a_matsuda";</script>
+<p>@<a class="tweet-url username" href="https://twitter.com/a_matsuda" rel="nofollow">a_matsuda</a> is amatsuda</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+			EOF
+		end
+		it { expect(@diary.to_html).to eq @html }
+	end
+
 end
 
 # Local Variables:
